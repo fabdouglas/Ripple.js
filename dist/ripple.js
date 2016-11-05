@@ -7,15 +7,8 @@
 
         var self = this;
 
-        var _log = self.log = function() {
-            if(self.defaults.debug && console && console.log) {
-                console.log.apply(console, arguments);
-            }
-        };
-
         self.selector = selector;
         self.defaults = {
-            debug: false,
             on: 'mousedown',
 
             opacity: 0.4,
@@ -48,8 +41,6 @@
                 $ripple = $("<span></span>").addClass("ripple");
                 $ripple.appendTo($this);
 
-                _log('Create: Ripple');
-
                 // Set ripple size
                 if (!$ripple.height() && !$ripple.width()) {
                     var size = Math.max($this.outerWidth(), $this.outerHeight());
@@ -57,7 +48,6 @@
                         height: size,
                         width: size
                     });
-                    _log('Set: Ripple size');
                 }
 
                 // Give the user the ability to change the rate of the animation
@@ -75,10 +65,6 @@
 
                     // Set the new duration if it has not changed
                     if(settings.duration.toFixed(2) !== newDuration.toFixed(2)) {
-                        _log('Update: Ripple Duration', {
-                            from: settings.duration,
-                            to: newDuration
-                        });
                         settings.duration = newDuration;
                     }
                 }
@@ -92,18 +78,15 @@
                     opacity: settings.opacity
                 };
 
-                _log('Set: Ripple CSS', css);
                 $ripple.css(css);
             }
 
             // Ensure we always have the ripple element
             if(!settings.multi) {
-                _log('Set: Ripple Element');
                 $ripple = $this.find(".ripple");
             }
 
             // Kill animation
-            _log('Destroy: Ripple Animation');
             $ripple.removeClass("ripple-animate");
 
 
@@ -117,17 +100,12 @@
              * need to trigger paints thereafter.
              */
             if(settings.multi) {
-                _log('Set: Ripple animationend event');
                 $ripple.one('animationend webkitAnimationEnd oanimationend MSAnimationEnd', function() {
-                    _log('Note: Ripple animation ended');
-                    _log('Destroy: Ripple');
                     $(this).remove();
                 });
             }
 
             // Set position and animate
-            _log('Set: Ripple location');
-            _log('Set: Ripple animation');
             $ripple.css({
                 top: y + 'px',
                 left: x + 'px'
