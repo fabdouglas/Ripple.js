@@ -21,7 +21,6 @@ Include jQuery, the ripple.css, and ripple.js into your page. Then upon initiali
 
 ```javascript
 $.ripple(".btn", {
-	debug: false, // Turn Ripple.js logging on/off
 	on: 'mousedown', // The event to trigger a ripple effect
 
 	opacity: 0.4, // The opacity of the ripple
